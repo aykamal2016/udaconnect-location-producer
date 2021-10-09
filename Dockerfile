@@ -1,15 +1,11 @@
-FROM python:3.9
+FROM python:3.8
 
 WORKDIR .
 
-RUN apk add --no-cache gcc musl-dev linux-headers libc-dev
-
-COPY requirements.txt requirements.txt
-
+COPY . .
 RUN pip install -r requirements.txt
 
 EXPOSE 5005
 
 COPY . .
-
-CMD ["python", "location_grpc_server.py"]
+ENTRYPOINT ["python", "location_grpc_server.py"]
