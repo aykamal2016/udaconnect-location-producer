@@ -4,6 +4,7 @@ from concurrent import futures
 import grpc
 import LocationEvent_pb2
 import LocationEvent_pb2_grpc
+import logging 
 
 
 class LocationEventServicer(LocationEvent_pb2_grpc.ItemServiceServicer):
@@ -17,7 +18,7 @@ class LocationEventServicer(LocationEvent_pb2_grpc.ItemServiceServicer):
                  "longitude": request.longitude,
               }
             print(request_value)
-
+            logging.info('processing entity ', request_value)
             return LocationEvent_pb2.LocationEventMessage(**request_value)
 
 
@@ -30,6 +31,6 @@ server.start()
 # Keep thread alive
 try:
     while True:
-        time.sleep(86400)
+        time.sleep(400)
 except KeyboardInterrupt:
     server.stop(0)
