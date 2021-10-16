@@ -7,6 +7,7 @@ import LocationEvent_pb2_grpc
 import logging
 import json
 from kafka import KafkaProducer
+from kafka.errors import KafkaError
 
 
 class LocationEventServicer(LocationEvent_pb2_grpc.ItemServiceServicer):
