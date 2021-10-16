@@ -23,7 +23,7 @@ class LocationEventServicer(LocationEvent_pb2_grpc.ItemServiceServicer):
             print(request_value)
             logging.info('processing entity ', request_value)
             logging.info('Insertion to kafa broker')
-            producer = KafkaProducer(bootstrap_servers=['localhost:30005'],api_version=(0, 10, 0),value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+            producer = KafkaProducer(bootstrap_servers=['kafka-headless:9092'],api_version=(0, 10, 0),value_serializer=lambda v: json.dumps(v).encode('utf-8'))
             future=producer.send('sample',request_value)
             producer.flush()
             try:
