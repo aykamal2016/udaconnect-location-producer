@@ -24,7 +24,7 @@ class LocationEventServicer(LocationEvent_pb2_grpc.ItemServiceServicer):
             logging.info('processing entity ', request_value)
             logging.info('Insertion to kafa broker')
             producer = KafkaProducer(bootstrap_servers=['localhost:30005'],api_version=(0, 10, 0),value_serializer=lambda v: json.dumps(v).encode('utf-8'))
-            producer.send('sample',request_value)
+            future=producer.send('sample',request_value)
             producer.flush()
             try:
               record_metadata=future.get(timeout=10) 
